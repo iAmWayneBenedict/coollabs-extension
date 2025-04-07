@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "My Vue Chrome Extension",
+  "version": "1.0.0",
+  "description": "A Chrome extension built with Vue.js",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "favicon.svg",
+      "32": "favicon.svg",
+      "48": "favicon.svg",
+      "128": "favicon.svg"
+    }
+  },
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "host_permissions": ["http://*/*", "https://*/*", "https://resource-collab.vercel.app/*"],
+  "icons": {
+    "16": "favicon.svg",
+    "32": "favicon.svg",
+    "48": "favicon.svg",
+    "128": "favicon.svg"
+  }
+}

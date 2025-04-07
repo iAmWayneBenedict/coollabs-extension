@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
+
+@theme {
+  --font-geist: 'Geist', sans-serif;
+  --font-playfair-display: 'Playfair Display', serif;
+}
+
+@layer {
+  #app {
+    @apply p-0! font-geist;
+  }
+
+  .font-playfair-display {
+    font-family: 'Playfair Display', serif;
+    font-optical-sizing: auto;
+  }
+
+  .bg-violet {
+    background-color: hsl(264.32 87.96% 57.65%);
+  }
+
+  .p-listbox-header {
+    @apply px-0;
+  }
+
+  .p-listbox-filter {
+    @apply rounded-xl py-1.5 bg-[#f4f4f5];
+  }
+
+  .p-inputicon {
+    @apply -translate-y-[40%];
+  }
+
+  .p-multiselect-header {
+    @apply gap-2;
+  }
+
+  .p-listbox-option {
+    @apply gap-2;
+  }
+}
