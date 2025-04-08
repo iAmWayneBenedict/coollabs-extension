@@ -9,9 +9,4 @@ export const useAppModeStore = defineStore('appMode', {
       return !!chrome?.runtime?.id
     },
   },
-  //   getters: {
-  //     hasExtensionContext(): boolean {
-  //       return this.isExtension
-  //     },
-  //   },
 })

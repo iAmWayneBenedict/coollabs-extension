@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { AnimatePresence } from 'motion-v'
-import CreateNewCollection from '@/components/main/CreateNewCollection.vue'
-import CollectionList from '@/components/main/CollectionList.vue'
-
-const createCollection = ref(false)
-
-const toggleCollection = () => {
-  createCollection.value = !createCollection.value
-}
+import AddResource from '@/components/AddResource.vue'
+import AISearch from '@/components/AISearch.vue'
+import HomeTab from '@/components/home/HomeTab.vue'
+import Pinned from '@/components/home/Pinned.vue'
+import Recent from '@/components/home/Recent.vue'
+import HomeHeader from '@/components/HomeHeader.vue'
+import { Button } from 'primevue'
 </script>
 
 <template>
-  <div class="flex flex-col w-82">
-    <div class="flex flex-col gap-2 overflow-hidden">
-      <AnimatePresence mode="wait" :initial="false">
-        <template v-if="createCollection">
-          <CreateNewCollection :toggleCollection="toggleCollection" />
-        </template>
-        <template v-else>
-          <CollectionList :toggleCollection="toggleCollection" />
-        </template>
-      </AnimatePresence>
-    </div>
+  <div class="flex flex-col w-full px-2">
+    <!-- <Button
+      text
+      rounded
+      size="small"
+      label="Add"
+      severity="contrast"
+      icon="pi pi-plus"
+      class="bg-violet text-white border-0"
+    /> -->
+
+    <!-- <AddResource /> -->
+
+    <HomeHeader />
+    <AISearch />
+    <!-- <Pinned />
+    <Recent /> -->
+    <HomeTab />
   </div>
 </template>

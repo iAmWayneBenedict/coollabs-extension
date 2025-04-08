@@ -7,6 +7,7 @@ import { useAuth } from '@/store/useAuth'
 import { authClient } from '@/lib/auth'
 import { ref } from 'vue'
 import config from '@/lib/config'
+import IconContainer from '@/components/IconContainer.vue'
 
 // states
 const loading = ref(false)
@@ -69,18 +70,7 @@ const getSession = () => {
 
 <template>
   <div class="flex flex-col gap-2 w-82">
-    <div class="w-full flex justify-center py-2">
-      <div class="flex gap-2 w-fit">
-        <img class="w-10" src="/favicon.svg" alt="" />
-        <span
-          class="font-playfair-display text-lg font-black uppercase"
-          style="font-weight: 900"
-          @click="getSession"
-        >
-          Coollabs
-        </span>
-      </div>
-    </div>
+    <IconContainer align="center" />
     <template v-if="error">
       <Message
         severity="error"
@@ -95,7 +85,7 @@ const getSession = () => {
       <IftaLabel>
         <InputText
           id="email"
-          :="emailAttrs"
+          v-bind="emailAttrs"
           :invalid="!!errors.email"
           v-model="email"
           variant="filled"
@@ -111,7 +101,7 @@ const getSession = () => {
       <IftaLabel>
         <InputText
           id="password"
-          :="passwordAttrs"
+          v-bind="passwordAttrs"
           :invalid="!!errors.password"
           v-model="password"
           variant="filled"

@@ -56,7 +56,7 @@ const handleCreateCollection = handleSubmit(async (values) => {
     :transition="{
       type: 'tween',
       ease: 'easeInOut',
-      duration: 0.25,
+      duration: 0.2,
     }"
   >
     <Button
@@ -69,10 +69,10 @@ const handleCreateCollection = handleSubmit(async (values) => {
       class="justify-start w-full font-bold hover:bg-transparent px-0"
     />
     <form @submit="handleCreateCollection" class="flex gap-2">
-      <div class="flex flex-col">
+      <div class="flex flex-col w-full">
         <InputText
           v-model="name"
-          :="nameAttrs"
+          v-bind="nameAttrs"
           :invalid="!!errors.name"
           :disabled="mutation.isPending.value"
           id="username"
