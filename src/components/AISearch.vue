@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { Button } from 'primevue'
+import { usePage } from '@/store/usePage'
+
+const page = usePage()
 </script>
 
 <template>
   <div class="w-full mt-3!">
     <Button
+      @click="page.setPage('search')"
       size="small"
       icon="pi pi-sparkles"
       label="Try AI Search"

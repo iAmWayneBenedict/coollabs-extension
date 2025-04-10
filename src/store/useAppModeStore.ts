@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useAppModeStore = defineStore('appMode', {
-  state: () => ({
-    isExtension: true,
-  }),
-  actions: {
+  getters: {
     hasExtensionContext() {
       return !!chrome?.runtime?.id
     },

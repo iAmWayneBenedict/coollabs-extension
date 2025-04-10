@@ -69,7 +69,7 @@ const getCategories = async () => {
 
 <template>
   <Toast />
-  <div class="w-[25rem] min-h-[30rem] max-h-auto overflow-visible p-3 flex justify-center">
+  <div class="w-[25rem] min-h-[30rem] max-h-auto overflow-x-hidden p-3 flex justify-center">
     <template v-if="!!auth.currentUser">
       <MainLayout />
     </template>

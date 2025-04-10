@@ -3,13 +3,13 @@ import { Listbox } from 'primevue'
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full h-full">
     <Listbox
       optionLabel="name"
       :highlightOnSelect="false"
       :virtualScrollerOptions="{ itemSize: 45 }"
-      class="w-full border-0 shadow-none"
-      listStyle="max-height:150px"
+      class="w-full h-full border-0 shadow-none"
+      listStyle="min-height:150px;height:100%"
     >
       <template #empty>
         <p class="text-center">No recent items</p>

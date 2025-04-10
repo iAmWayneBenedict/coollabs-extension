@@ -1,20 +1,15 @@
 <script setup lang="ts">
 import { useGetCollectionsQuery } from '@/lib/queries/collection-folders'
-import { DEFAULT_FALLBACK_THUMBNAIL } from '@/lib/utils'
+import { DEFAULT_FALLBACK_THUMBNAIL, ACCESS_LEVEL_ICONS } from '@/lib/utils'
 import { useAuth } from '@/store/useAuth'
 import { motion } from 'motion-v'
 import { Button, Listbox } from 'primevue'
 import { ref } from 'vue'
+import SlideTransition from '../animation/SlideTransition.vue'
 
 const props = defineProps<{
   toggleCollection: (e: MouseEvent) => void
 }>()
-
-const icon = {
-  public: 'pi pi-globe',
-  private: 'pi pi-lock',
-  shared: 'pi pi-users',
-}
 
 const selectedCollection = ref(null)
 const user = useAuth()
@@ -22,18 +17,7 @@ const { data } = useGetCollectionsQuery({ enabled: !!user })
 </script>
 
 <template>
-  <motion.div
-    class="w-full flex flex-col gap-2"
-    key="collections-list"
-    :initial="{ opacity: 0, x: -150 }"
-    :animate="{ opacity: 1, x: 0 }"
-    :exit="{ opacity: 0, x: -150 }"
-    :transition="{
-      type: 'tween',
-      ease: 'easeInOut',
-      duration: 0.2,
-    }"
-  >
+  <SlideTransition to="left" animKey="collections-list" class="w-full flex flex-col gap-2">
     <h1 class="font-semibold!">Save to collection</h1>
     <Button
       @click="props.toggleCollection"
@@ -45,7 +29,7 @@ const { data } = useGetCollectionsQuery({ enabled: !!user })
       rounded
       class="w-full border-2 hover:bg-zinc-900 dark:hover:bg-zinc-100 hover:text-white dark:hover:text-black"
     />
-    <div class="w-full border-1 border-[#e4e4e7] rounded-2xl px-2 pt-0">
+    <div class="w-full h-full border-1 border-[#e4e4e7] rounded-2xl px-2 pt-0">
       <Listbox
         filter
         multiple
@@ -74,7 +58,15 @@ const { data } = useGetCollectionsQuery({ enabled: !!user })
                 <p class="text-xs text-zinc-500">{{ slotProps.option.resourceCount }} item(s)</p>
               </div>
             </div>
-            <div><i :class="icon[slotProps.option.access_level as keyof typeof icon]" /></div>
+            <div>
+              <i
+                :class="
+                  ACCESS_LEVEL_ICONS[
+                    slotProps.option.access_level as keyof typeof ACCESS_LEVEL_ICONS
+                  ]
+                "
+              />
+            </div>
           </div>
         </template>
       </Listbox>
@@ -85,7 +77,7 @@ const { data } = useGetCollectionsQuery({ enabled: !!user })
       type="button"
       label="Done"
       severity="contrast"
-      class="w-full h-fit min-w-[5rem] font-bold bg-violet px-0 border-0"
+      class="w-full h-fit min-w-[5rem] font-bold bg-violet px-0 border-2 border-violet-600"
     />
-  </motion.div>
+  </SlideTransition>
 </template>

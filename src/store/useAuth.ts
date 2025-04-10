@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useAppModeStore } from './useAppModeStore'
 
 export const useAuth = defineStore('auth', {
   state: () => ({
@@ -7,12 +8,19 @@ export const useAuth = defineStore('auth', {
   actions: {
     setUser(user: any) {
       const data = user ?? null
-      localStorage.setItem('user', JSON.stringify(data))
+      const appMode = useAppModeStore()
+      if (appMode.hasExtensionContext) chrome.storage.local.set({ user: data })
+      else localStorage.setItem('user', JSON.stringify(data))
       this.user = user
     },
   },
   getters: {
-    currentUser(): Record<string, string> | null {
+    async currentUser(): Promise<Record<string, string> | null> {
+      const appMode = useAppModeStore()
+      if (appMode.hasExtensionContext) {
+        const user = await chrome.storage.local.get('user')
+        return user
+      }
       return JSON.parse(localStorage.getItem('user') ?? 'null')
     },
   },

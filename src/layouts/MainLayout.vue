@@ -1,31 +1,45 @@
 <script setup lang="ts">
-import AddResource from '@/components/AddResource.vue'
-import AISearch from '@/components/AISearch.vue'
-import HomeTab from '@/components/home/HomeTab.vue'
-import Pinned from '@/components/home/Pinned.vue'
-import Recent from '@/components/home/Recent.vue'
-import HomeHeader from '@/components/HomeHeader.vue'
-import { Button } from 'primevue'
+import Header from '@/components/Header.vue'
+import { usePage } from '@/store/usePage'
+import { AnimatePresence, motion } from 'motion-v'
+import HomeLayout from '@/layouts/HomeLayout.vue'
+import AddLayout from './AddLayout.vue'
+import BrowseLayout from './BrowseLayout.vue'
+import { useUserData } from '@/store/useUserData'
+import { useGetAllUserData } from '@/lib/queries/user-data'
+import { watch } from 'vue'
+import AISearchLayout from '@/layouts/AISearchLayout.vue'
+
+const page = usePage()
+const userData = useUserData()
+
+const { data } = useGetAllUserData()
+
+watch(data, (value) => {
+  if (value?.data) {
+    userData.setUser(value?.data)
+  }
+})
 </script>
 
 <template>
   <div class="flex flex-col w-full px-2">
-    <!-- <Button
-      text
-      rounded
-      size="small"
-      label="Add"
-      severity="contrast"
-      icon="pi pi-plus"
-      class="bg-violet text-white border-0"
-    /> -->
+    <AnimatePresence mode="wait" :initial="false">
+      <template v-if="page.getPage === 'home'">
+        <HomeLayout />
+      </template>
 
-    <!-- <AddResource /> -->
+      <template v-else-if="page.getPage === 'add'">
+        <AddLayout />
+      </template>
 
-    <HomeHeader />
-    <AISearch />
-    <!-- <Pinned />
-    <Recent /> -->
-    <HomeTab />
+      <template v-else-if="page.getPage === 'browse'">
+        <BrowseLayout />
+      </template>
+
+      <template v-else-if="page.getPage === 'search'">
+        <AISearchLayout />
+      </template>
+    </AnimatePresence>
   </div>
 </template>

@@ -7,3 +7,9 @@ export const DEFAULT_FALLBACK_THUMBNAIL =
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export const ACCESS_LEVEL_ICONS = {
+  public: 'pi pi-globe',
+  private: 'pi pi-lock',
+  shared: 'pi pi-users',
+}

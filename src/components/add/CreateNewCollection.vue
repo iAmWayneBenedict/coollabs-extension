@@ -2,10 +2,10 @@
 import { usePostCreateCollectionsMutation } from '@/lib/mutations/collectoin-folders'
 import { useQueryClient } from '@tanstack/vue-query'
 import { toTypedSchema } from '@vee-validate/zod'
-import { motion } from 'motion-v'
 import { Button, InputText, Message, useToast } from 'primevue'
 import { useForm } from 'vee-validate'
 import { z } from 'zod'
+import SlideTransition from '../animation/SlideTransition.vue'
 
 const props = defineProps<{
   toggleCollection: (e?: MouseEvent) => void
@@ -47,18 +47,7 @@ const handleCreateCollection = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <motion.div
-    class="w-full"
-    key="create-form"
-    :initial="{ opacity: 0, x: 150 }"
-    :animate="{ opacity: 1, x: 0 }"
-    :exit="{ opacity: 0, x: 150 }"
-    :transition="{
-      type: 'tween',
-      ease: 'easeInOut',
-      duration: 0.2,
-    }"
-  >
+  <SlideTransition to="right" animKey="create-form" class="w-full">
     <Button
       text
       rounded
@@ -66,7 +55,8 @@ const handleCreateCollection = handleSubmit(async (values) => {
       label="Create new collection"
       severity="contrast"
       icon="pi pi-arrow-left"
-      class="justify-start w-full font-bold hover:bg-transparent px-0"
+      class="justify-start w-full hover:bg-transparent px-0"
+      :pt="{ label: { class: 'font-medium! text-[.92rem]' } }"
     />
     <form @submit="handleCreateCollection" class="flex gap-2">
       <div class="flex flex-col w-full">
@@ -95,5 +85,5 @@ const handleCreateCollection = handleSubmit(async (values) => {
         class="w-fit h-fit min-w-[5rem] font-bold bg-violet px-0 border-0"
       />
     </form>
-  </motion.div>
+  </SlideTransition>
 </template>
